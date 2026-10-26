@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Task API Frontend</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <p class="subtitle">Connected to Aiven MySQL via Express</p>
+
+        <!-- Form to add a new task -->
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Enter a new task..." required>
+            <button type="submit" id="add-btn">Add Task</button>
+        </form>
+
+        <!-- Container to display tasks -->
+        <ul id="task-list">
+            <!-- Tasks will be injected here by JavaScript -->
+        </ul>
+    </div>
+
+    <!-- Link to your JavaScript file -->
+    <script src="app.js"></script>
+</body>
+</html>
