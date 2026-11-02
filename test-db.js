@@ -1,10 +1,27 @@
 // test-db.js — run once to prove MySQL works:  npm run test:db
 require('dotenv').config();
-const pool = require('./src/db');
+const mysql = require('mysql2/promise'); // We import mysql directly now
 
 async function test() {
   try {
-    // Try to query the database
+    // 1. Set up the connection config directly here
+    const poolConfig = {
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+    };
+
+    // 2. Add the SSL requirement (This fixes the "Lost connection" error)
+    if ((process.env.DB_SSL || '').toUpperCase() === 'REQUIRED') {
+      poolConfig.ssl = { rejectUnauthorized: true };
+    }
+
+    // 3. Create the connection pool
+    const pool = mysql.createPool(poolConfig);
+
+    // 4. Try to query the database
     const [rows] = await pool.query(
       'SELECT 1 AS ok, DATABASE() AS db, NOW() AS now'
     );
